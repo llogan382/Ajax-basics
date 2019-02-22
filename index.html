@@ -19,9 +19,11 @@
 
     // Open the request. In this case, getting infor from the file "sidebar.html"
     xhr.open('GET', 'sidebar.html');
-
-    // Send the request
-    xhr.send();
+    function sendAJAX(){
+      // Send the request (when buttonis clicked)
+      xhr.send();
+      document.getElementById('load').style.display = "none";
+    }
   </script>
 </head>
 <body>
@@ -31,6 +33,7 @@
         <div class="grid-100">
           <div class="heading">
             <h1>Bring on the AJAX</h1>
+            <button id="load" onclick="sendAJAX()">Bring it!</button>
           </div>
           <ul id="ajax">
 
