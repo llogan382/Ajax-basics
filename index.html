@@ -6,7 +6,22 @@
   <link rel="stylesheet" href="css/main.css">
   <title>AJAX with JavaScript</title>
   <script>
- 
+
+    // Create the request object
+    var xhr = new XMLHttpRequest();
+
+    // Create a callback function
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 ) {
+        document.getElementById('ajax').innerHTML = xhr.responseText;
+      }
+    };
+
+    // Open the request. In this case, getting infor from the file "sidebar.html"
+    xhr.open('GET', 'sidebar.html');
+
+    // Send the request
+    xhr.send();
   </script>
 </head>
 <body>
