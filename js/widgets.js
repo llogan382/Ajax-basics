@@ -1,43 +1,20 @@
-var xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function () {
-  if(xhr.readyState === 4 && xhr.status === 200) {
-    var employees = JSON.parse(xhr.responseText);
+// This is jquery- waits for all HTML before running JS inside the file. This is required when you load JS in the head of the doc. 
+$(document).ready(function () {
+var url = "../htdocs/data/employees.json";
+  // The url to connect to, data to send, and callback for how to handle the response
+  // For the callback, if the response is not JSON, it will fail without any warnings.
+  $.getJSON(url, function(response){
     var statusHTML = '<ul class="bulleted">';
-    for (var i=0; i<employees.length; i += 1) {
-      if (employees[i].inoffice === true) {
+    $.each(response, function(index, employee){
+      if(employee.inoffice === true ){
         statusHTML += '<li class="in">';
       } else {
         statusHTML += '<li class="out">';
       }
-      statusHTML += employees[i].name;
-      statusHTML += '</li>';
-    }
-    statusHTML += '</ul>';
-    document.getElementById('employeeList').innerHTML = statusHTML;
-  }
-};
-xhr.open('GET', '../htdocs/data/employees.json');
-xhr.send();
+      statusHTML += employee.name + '</li>';
+    });
+    statusHTML += "</ul>";
+    $('#employeeList').html(statusHTML);
+  }); //end getJSON
 
-
-
-var yhr = new XMLHttpRequest();
-yhr.onreadystatechange = function () {
-  if(yhr.readyState === 4 && yhr.status === 200) {
-    var rooms = JSON.parse(yhr.responseText);
-    var statusHTML = '<ul class="rooms">';
-    for (var i=0; i<rooms.length; i += 1) {
-      if (rooms[i].available === true) {
-        statusHTML += '<li class="empty">';
-      } else {
-        statusHTML += '<li class="full">';
-      }
-      statusHTML += rooms[i].room;
-      statusHTML += '</li>';
-    }
-    statusHTML += '</ul>';
-    document.getElementById('roomList').innerHTML = statusHTML;
-  }
-};
-yhr.open('GET', '../htdocs/data/rooms.json');
-yhr.send();
+});// end ready
